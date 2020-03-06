@@ -1306,7 +1306,7 @@ for a revision."
       (cl-block nil
         (while (setq hunk (pop hunks))
           (pcase-let* ((`(,beg ,len) (oref hunk to-range))
-                       (end (+ beg len)))
+                       (end (if len (+ beg len) beg)))
             (cond ((>  beg line)     (cl-return (list diff nil)))
                   ((<= beg line end) (cl-return (list hunk t)))
                   ((null hunks)      (cl-return (list hunk nil))))))))))
